@@ -1,32 +1,49 @@
 package grapher.ui;
 
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JSplitPane;
+import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+import javax.swing.event.MouseInputListener;
 
 import grapher.fc.Function;
 
 
 public class Main extends JFrame {
-	JList mylist ; 
+	private JList mylist ; 
 	Main(String title, String[] expressions) {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		mylist = new JList<>(expressions);
 		Grapher grapher = new Grapher();		
 		for(String expression : expressions) {
 			grapher.add(expression);
 		}
-		mylist = new JList<>(expressions);
+		JButton btn =null;
+		JToolBar toolbar = new JToolBar();
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				e.getSource();
+			}
+		});
+		toolbar.add(btn);
+		
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT); 
 		ScrollPane scrollpane = new ScrollPane();
 		scrollpane.add(mylist);
+		
 		splitPane.add(scrollpane);
 		splitPane.add(grapher);
 		splitPane.setDividerLocation(150);
@@ -41,7 +58,7 @@ public class Main extends JFrame {
 				int index = list1.locationToIndex(e.getPoint());
 				Object o =list1.getModel().getElementAt(index);
 				//if(o.toString().equals(grapher.functions.get(index).toString())){
-					grapher.Setgras(grapher.functions.get(index),o.toString());
+			
 				//}
 			}
 		};
